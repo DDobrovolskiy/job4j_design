@@ -16,17 +16,13 @@ public class EvenIterator implements Iterator<Integer> {
     @Override
     public boolean hasNext() {
         cursorNext = cursor;
-        while (true) {
-            if (cursorNext < data.length) {
-                if (data[cursorNext] % 2 == 0) {
-                    return true;
-                } else {
-                    cursorNext++;
-                }
-            } else {
+        while (!(data[cursorNext] % 2 == 0)) {
+            cursorNext++;
+            if (cursorNext == data.length) {
                 return false;
             }
         }
+        return true;
     }
 
     @Override
