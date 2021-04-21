@@ -14,7 +14,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void add(T value) {
-        Node<T> node = new Node<T>(value, null);
+        Node<T> node = new Node<>(value, null);
         if (head == null) {
             head = node;
         } else {
@@ -29,7 +29,7 @@ public class ForwardLinked<T> implements Iterable<T> {
     }
 
     public void addFirst(T value) {
-        Node<T> node = new Node<T>(value, null);
+        Node<T> node = new Node<>(value, null);
         if (head == null) {
             head = node;
         } else {
@@ -51,9 +51,27 @@ public class ForwardLinked<T> implements Iterable<T> {
         return delete.value;
     }
 
+    public boolean revert() {
+        if (!isEmpty() && head.next != null) {
+            Node<T> current = head.next;
+            head.next = null;
+            while (current != null) {
+                Node<T> currentNext = current.next;
+                current.next = head;
+                head = current;
+                current = currentNext;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+        return head == null;
+    }
+
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             Node<T> node = head;
             private int countModExpected = countMod;
 
