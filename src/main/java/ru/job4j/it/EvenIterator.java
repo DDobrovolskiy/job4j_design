@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 public class EvenIterator implements Iterator<Integer> {
 
     private final int[] data;
-    private int cursor = 0;
     private int cursorNext = 0;
 
     public EvenIterator(int[] data) {
@@ -15,14 +14,10 @@ public class EvenIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        cursorNext = cursor;
-        while (!(data[cursorNext] % 2 == 0)) {
+        while (cursorNext < data.length && (data[cursorNext] % 2 == 1)) {
             cursorNext++;
-            if (cursorNext == data.length) {
-                return false;
-            }
         }
-        return true;
+        return cursorNext < data.length;
     }
 
     @Override
@@ -30,7 +25,6 @@ public class EvenIterator implements Iterator<Integer> {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        cursor = cursorNext;
-        return data[cursor++];
+        return data[cursorNext++];
     }
 }
