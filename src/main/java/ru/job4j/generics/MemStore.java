@@ -2,6 +2,7 @@ package ru.job4j.generics;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public final class MemStore<T extends Base> implements Store<T> {
 
@@ -15,12 +16,18 @@ public final class MemStore<T extends Base> implements Store<T> {
     @Override
     public boolean replace(String id, T model) {
         int index = findIndexById(id);
+        if (index == -1) {
+            return false;
+        }
         return mem.get(index).equals(mem.set(index, model));
     }
 
     @Override
     public boolean delete(String id) {
         int index = findIndexById(id);
+        if (index == -1) {
+            return false;
+        }
         return mem.get(index).equals(mem.remove(index));
     }
 
@@ -36,11 +43,11 @@ public final class MemStore<T extends Base> implements Store<T> {
 
     @Override
     public T findById(String id) {
-        for (T item : mem) {
-            if (item.getId().equals(id)) {
-                return item;
-            }
+        int index = findIndexById(id);
+        if (index == -1) {
+            return null;
+        } else {
+            return mem.get(index);
         }
-        return null;
     }
 }
