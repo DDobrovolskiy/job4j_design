@@ -54,7 +54,6 @@ public class ListUtils {
             T itemDelete = i.next();
                 if (elements.contains(itemDelete)) {
                     i.remove();
-                    break;
                 }
         }
     }
