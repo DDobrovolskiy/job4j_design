@@ -21,6 +21,7 @@ public class SimpleTreeTest {
 
         assertFalse(tree.add(10, 6));
         assertFalse(tree.add(1, 6));
+        assertFalse(tree.add(1, 1));
     }
 
     @Test
@@ -31,5 +32,26 @@ public class SimpleTreeTest {
                 tree.findBy(7).isPresent(),
                 is(false)
         );
+    }
+
+    @Test
+    public void whenIsBinary() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        assertTrue(tree.add(1, 2));
+        assertTrue(tree.add(1, 3));
+        assertTrue(tree.add(3, 4));
+        assertTrue(tree.add(3, 5));
+        assertTrue(tree.isBinary());
+    }
+
+    @Test
+    public void whenIsNotBinary() {
+        Tree<Integer> tree = new SimpleTree<>(1);
+        assertTrue(tree.add(1, 2));
+        assertTrue(tree.add(1, 3));
+        assertTrue(tree.add(3, 4));
+        assertTrue(tree.add(3, 5));
+        assertTrue(tree.add(3, 6));
+        assertFalse(tree.isBinary());
     }
 }
