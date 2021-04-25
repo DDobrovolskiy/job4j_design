@@ -12,7 +12,7 @@ public class SimpleMyMapTest {
 
     @Test
     public void insertAndGetValue() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
         Assert.assertTrue(simpleMyMap.insert(0, 10));
         Assert.assertTrue(simpleMyMap.insert(1, 11));
         Assert.assertTrue(simpleMyMap.insert(2, 12));
@@ -31,7 +31,7 @@ public class SimpleMyMapTest {
 
     @Test
     public void whenDeleteValue() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
         simpleMyMap.insert(0, 10);
         simpleMyMap.insert(1, 11);
         simpleMyMap.insert(2, 12);
@@ -43,12 +43,15 @@ public class SimpleMyMapTest {
         Assert.assertFalse(simpleMyMap.delete(1));
 
         Assert.assertTrue(simpleMyMap.insert(17, 17));
-        Assert.assertThat(simpleMyMap.get(1), is(17));
+        Assert.assertThat(simpleMyMap.get(17), is(17));
+
+        Assert.assertFalse(simpleMyMap.delete(1));
+        Assert.assertTrue(simpleMyMap.delete(17));
     }
 
     @Test
     public void whenGetIterator() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
         simpleMyMap.insert(0, 10);
         simpleMyMap.insert(1, 11);
         simpleMyMap.insert(2, 12);
@@ -65,7 +68,7 @@ public class SimpleMyMapTest {
 
     @Test (expected = NoSuchElementException.class)
     public void whenIteratorException() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
 
         var i = simpleMyMap.iterator();
         i.next();
@@ -73,7 +76,7 @@ public class SimpleMyMapTest {
 
     @Test (expected = ConcurrentModificationException.class)
     public void whenIteratorChange() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
         simpleMyMap.insert(0, 10);
         var i = simpleMyMap.iterator();
         simpleMyMap.insert(2, 10);
@@ -81,28 +84,19 @@ public class SimpleMyMapTest {
     }
 
     @Test
-    public void whenChangeCapacity() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(1);
-        Assert.assertTrue(simpleMyMap.insert(0, 10));
-        Assert.assertTrue(simpleMyMap.insert(1, 11));
-        Assert.assertThat(simpleMyMap.get(0), is(10));
-        Assert.assertThat(simpleMyMap.get(1), is(11));
-    }
-
-    @Test
     public void whenChangeCapacityAndChangeIndex() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
         Assert.assertTrue(simpleMyMap.insert(118, 118));
-        Assert.assertThat(simpleMyMap.get(6), is(118));
+        Assert.assertThat(simpleMyMap.get(118), is(118));
         for (int i = 0; i < 16; i++) {
             simpleMyMap.insert(i, i);
         }
-        Assert.assertThat(simpleMyMap.get(22), is(118));
+        Assert.assertThat(simpleMyMap.get(118), is(118));
     }
 
     @Test
     public void whenKeyIsNull() {
-        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>(16);
+        SimpleMyMap<Integer, Integer> simpleMyMap = new SimpleMyMap<>();
         Assert.assertTrue(simpleMyMap.insert(null, null));
         Assert.assertNull(simpleMyMap.get(null));
     }
