@@ -10,7 +10,7 @@ public class SimpleMyMap<K, V> implements Iterable<SimpleMyMap.Node<K, V>> {
     private int size = 0;
     private int countMod = 0;
     private Node<K, V>[] data;
-    private final float loadFactor = 0.75F;
+    private static final float LOAD_FACTOR = 0.75F;
 
     public SimpleMyMap() {
         data = new Node[16];
@@ -71,7 +71,7 @@ public class SimpleMyMap<K, V> implements Iterable<SimpleMyMap.Node<K, V>> {
     }
 
     private void changeSize() {
-        if (size > data.length * loadFactor) {
+        if (size > data.length * LOAD_FACTOR) {
             Node<K, V>[] newData = new Node[data.length * 2];
             for (Node<K, V> node : data) {
                 if (node != null) {
