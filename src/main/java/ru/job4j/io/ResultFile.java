@@ -12,13 +12,13 @@ public class ResultFile {
                 stringBuilder.append(i + " x " + j + " = " + i * j + ";");
                 stringBuilder.append(System.lineSeparator());
             }
+            stringBuilder.append(System.lineSeparator());
         }
         return stringBuilder.toString();
     }
 
     public static void main(String[] args) {
-        try {
-            FileOutputStream out = new FileOutputStream("result.txt");
+        try (FileOutputStream out = new FileOutputStream("result.txt")) {
             out.write(getTable().getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             e.printStackTrace();
