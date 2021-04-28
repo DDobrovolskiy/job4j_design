@@ -1,5 +1,7 @@
 package ru.job4j.io;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,7 +16,6 @@ public class Config {
     }
 
     public void load() {
-
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
                     .filter(line -> !line.startsWith("#"))
@@ -30,8 +31,10 @@ public class Config {
                         throw new RuntimeException(error);
                     }
             });
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
+        } catch (RuntimeException e) {
+            throw new IllegalArgumentException();
         }
     }
 
