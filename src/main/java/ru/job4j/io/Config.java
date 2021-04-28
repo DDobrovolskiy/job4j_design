@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class Config {
     private final String path;
-    private Exception error;
     private final Map<String, String> values = new HashMap<String, String>();
 
     public Config(final String path) {
@@ -28,24 +27,16 @@ public class Config {
                         }
                         values.put(s[0], s[1]);
                     } catch (Exception error) {
-                        exceptionArg(error);
+                        throw new RuntimeException(error);
                     }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (error != null) {
-            throw (RuntimeException) error;
-        }
-    }
-
-    private void exceptionArg(Exception error) {
-        this.error = error;
     }
 
     public String value(String key) {
         return values.get(key);
-        //throw new UnsupportedOperationException("Don't impl this method yet!");
     }
 
     @Override
