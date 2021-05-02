@@ -23,7 +23,7 @@ public class Config {
                     .forEach(line -> {
                     String[] s = line.split("=");
                     try {
-                        if (s.length == 1) {
+                        if (s.length != 2) {
                             throw new IllegalArgumentException();
                         }
                         values.put(s[0], s[1]);
@@ -34,7 +34,10 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (RuntimeException e) {
-            throw new IllegalArgumentException();
+            if (e.getCause() instanceof IllegalArgumentException) {
+                throw new IllegalArgumentException();
+            }
+            e.printStackTrace();
         }
     }
 
