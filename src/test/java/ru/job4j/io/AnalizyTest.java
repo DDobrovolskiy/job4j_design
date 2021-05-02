@@ -1,9 +1,10 @@
 package ru.job4j.io;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,12 +13,25 @@ import static org.junit.Assert.*;
 
 public class AnalizyTest {
 
+    @Rule
+    public TemporaryFolder folder = new TemporaryFolder();
+
     @Test
-    public void unavailable() {
-        String source = "./data/server.log";
-        String target = "./data/serverOutdoor.txt";
+    public void unavailable() throws IOException {
+        File source = folder.newFile("server.txt");
+        File target = folder.newFile("target.txt");
+
+        try (PrintWriter out = new PrintWriter(source.getAbsoluteFile())) {
+            out.print("200 10:56:01\n"
+                    + "500 10:57:01\n"
+                    + "400 10:58:01\n"
+                    + "200 10:59:01\n"
+                    + "500 11:01:02\n"
+                    + "200 11:02:02");
+        }
+
         Analizy analizy = new Analizy();
-        analizy.unavailable(source, target);
+        analizy.unavailable(source.getAbsolutePath(), target.getAbsolutePath());
 
         List<String> action = new LinkedList<>();
 

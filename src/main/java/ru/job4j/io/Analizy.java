@@ -13,7 +13,8 @@ public class Analizy {
 
     public void unavailable(String source, String target) {
         List<String> serverOutdoor = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(source));
+             PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             in.lines().forEach(line -> {
                 if ((line.startsWith("500") || line.startsWith("400")) && !getFlagOutdoorServer()) {
                     setFlagOutdoorServer(true);
@@ -25,10 +26,6 @@ public class Analizy {
                     serverOutdoor.set(lastIndex, serverOutdoor.get(lastIndex) + line.split(" ")[1] + ";");
                 }
             });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
             serverOutdoor.forEach(out::println);
         } catch (Exception e) {
             e.printStackTrace();
