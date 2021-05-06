@@ -1,20 +1,16 @@
 package ru.job4j.io;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Analizy {
     private boolean flagOutdoor = false;
+    private List<String> serverOutdoor = new ArrayList<>();
 
     public void unavailable(String source, String target) {
-        List<String> serverOutdoor = new ArrayList<>();
-        try (BufferedReader in = new BufferedReader(new FileReader(source));
-             PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
+        try (BufferedReader in = new BufferedReader(new FileReader(source))) {
             in.lines().forEach(line -> {
                 if ((line.startsWith("500") || line.startsWith("400")) && !getFlagOutdoorServer()) {
                     setFlagOutdoorServer(true);
@@ -26,9 +22,15 @@ public class Analizy {
                     serverOutdoor.set(lastIndex, serverOutdoor.get(lastIndex) + line.split(" ")[1] + ";");
                 }
             });
-            serverOutdoor.forEach(out::println);
+            writeResult(target);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void writeResult(String target) throws FileNotFoundException {
+        try (PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
+            serverOutdoor.forEach(out::println);
         }
     }
 
