@@ -22,21 +22,12 @@ public class Config {
                     .filter(line -> !line.equals(""))
                     .forEach(line -> {
                     String[] s = line.split("=");
-                    try {
                         if (s.length != 2) {
                             throw new IllegalArgumentException();
                         }
                         values.put(s[0], s[1]);
-                    } catch (Exception error) {
-                        throw new RuntimeException(error);
-                    }
             });
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (RuntimeException e) {
-            if (e.getCause() instanceof IllegalArgumentException) {
-                throw new IllegalArgumentException();
-            }
             e.printStackTrace();
         }
     }
