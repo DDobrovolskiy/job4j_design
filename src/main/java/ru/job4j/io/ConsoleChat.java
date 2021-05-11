@@ -1,6 +1,7 @@
 package ru.job4j.io;
 
 import java.io.*;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -14,6 +15,7 @@ public class ConsoleChat {
     private static final String CONTINUE = "продолжить";
 
     private List<String> answers;
+    private List<String> messages;
     private Random random;
     private boolean isStop = false;
     private boolean isOut = false;
@@ -22,6 +24,7 @@ public class ConsoleChat {
         this.path = path;
         this.botAnswers = botAnswers;
         this.random = new Random();
+        this.messages = new LinkedList<>();
     }
 
     public void run() {
@@ -32,6 +35,8 @@ public class ConsoleChat {
             peopleSay(chat.nextLine());
             getAnswer();
         }
+        chat.close();
+        writeMessages();
     }
 
     private void peopleSay(String message) {
@@ -47,12 +52,18 @@ public class ConsoleChat {
     }
 
     private String logger(String message) {
-        try (BufferedWriter log = new BufferedWriter(new FileWriter(path, true))) {
-          log.write(message + System.lineSeparator());
+        messages.add(message);
+        return message;
+    }
+
+    private void writeMessages() {
+        try (BufferedWriter log = new BufferedWriter(new FileWriter(path))) {
+            for (String message : messages) {
+                log.write(message + System.lineSeparator());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return message;
     }
 
     private void printMessage(String message) {
@@ -69,7 +80,7 @@ public class ConsoleChat {
 
     private void getAnswer() {
         if (!isStop) {
-            printMessage("bot:" + searchAnswer());
+            printMessage("bot: " + searchAnswer());
         }
     }
 
