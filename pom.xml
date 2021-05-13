@@ -64,10 +64,10 @@
           <goal>shade</goal>
         </goals>
         <configuration>
-          <finalName>Zip</finalName>
+          <finalName>Find</finalName>
           <transformers>
             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-              <mainClass>ru.job4j.io.Zip</mainClass>
+              <mainClass>ru.job4j.io.ex.Find</mainClass>
             </transformer>
           </transformers>
         </configuration>

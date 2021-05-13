@@ -1,10 +1,28 @@
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:18 +0300] "GET /items/ajax.html HTTP/1.1" 404 1113
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:23 +0300] "GET /TrackStudio HTTP/1.1" 302 -
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:23 +0300] "GET /TrackStudio/ HTTP/1.1" 404 1110
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:34 +0300] "GET /TrackStudioNew/ HTTP/1.1" 404 -
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:48 +0300] "GET / HTTP/1.1" 200 11488
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /tomcat.png HTTP/1.1" 200 5103
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /tomcat.css HTTP/1.1" 200 5931
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-nav.png HTTP/1.1" 200 1401
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-button.png HTTP/1.1" 200 713
-0:0:0:0:0:0:0:1 - - [19/Feb/2020:15:21:49 +0300] "GET /bg-middle.png HTTP/1.1" 200 1918
+.idea\checkstyleidea-libs\readme.txt
+404.txt
+data\AnswerBot.txt
+data\ChatLogger.txt
+data\serverOutdoor.txt
+even.txt
+log.txt
+result.txt
+target\surefire-reports\ru.job4j.collection.ex.UserEmailTest.txt
+target\surefire-reports\ru.job4j.collection.ForwardLinkedTest.txt
+target\surefire-reports\ru.job4j.collection.map.SimpleMyMapTest.txt
+target\surefire-reports\ru.job4j.collection.SimpleArrayTest.txt
+target\surefire-reports\ru.job4j.collection.SimpleLinkedListTest.txt
+target\surefire-reports\ru.job4j.collection.SimpleQueueTest.txt
+target\surefire-reports\ru.job4j.collection.SimpleSetTest.txt
+target\surefire-reports\ru.job4j.collection.SimpleStackTest.txt
+target\surefire-reports\ru.job4j.collection.tree.SimpleTreeTest.txt
+target\surefire-reports\ru.job4j.excollection.AnalizeTest.txt
+target\surefire-reports\ru.job4j.first.TriggerTest.txt
+target\surefire-reports\ru.job4j.generics.SimpleArrayTest.txt
+target\surefire-reports\ru.job4j.io.AnalizyTest.txt
+target\surefire-reports\ru.job4j.io.ArgsNameTest.txt
+target\surefire-reports\ru.job4j.io.ConfigTest.txt
+target\surefire-reports\ru.job4j.it.BackwardArrayItTest.txt
+target\surefire-reports\ru.job4j.it.EvenIteratorTest.txt
+target\surefire-reports\ru.job4j.it.FlatMapTest.txt
+target\surefire-reports\ru.job4j.it.MatrixItTest.txt
+target\surefire-reports\ru.job4j.iterator.ListUtilsTest.txt
