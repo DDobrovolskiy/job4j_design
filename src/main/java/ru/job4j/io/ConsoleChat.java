@@ -1,5 +1,8 @@
 package ru.job4j.io;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +11,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class ConsoleChat {
+    private static final Logger LOG = LoggerFactory.getLogger(ConsoleChat.class.getName());
+
     private final String path;
     private final String botAnswers;
     private static final String OUT = "закончить";
@@ -62,7 +67,7 @@ public class ConsoleChat {
                 log.write(message + System.lineSeparator());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Запись истории чата: ", e);
         }
     }
 
@@ -74,6 +79,7 @@ public class ConsoleChat {
         try (BufferedReader in = new BufferedReader(new FileReader(botAnswers))) {
             answers = in.lines().collect(Collectors.toList());
         } catch (Exception e) {
+            LOG.error("Чтение файла с ответами: ", e);
             e.printStackTrace();
         }
     }
