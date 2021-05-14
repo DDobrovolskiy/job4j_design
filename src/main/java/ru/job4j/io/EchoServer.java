@@ -6,6 +6,7 @@ import java.net.Socket;
 
 public class EchoServer {
     public static void main(String[] args) throws IOException {
+        boolean flagCloseServer = false;
         try (ServerSocket server = new ServerSocket(9000)) {
             while (!server.isClosed()) {
                 Socket socket = server.accept();
@@ -14,23 +15,25 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     System.out.println("Client connect...");
-                    String str = in.readLine().split(" ")[1];
-                    String serverMessage = "What?";
-                    if (str.startsWith("/?msg=")) {
-                        if (str.equals("/?msg=Exit")) {
-                            try {
+                    String str = in.readLine();
+                    if (str != null) {
+                        str = str.split(" ")[1];
+                        String serverMessage = "What?";
+                        if (str.startsWith("/?msg=")) {
+                            if (str.equals("/?msg=Exit")) {
                                 serverMessage = "Close server...";
-                                server.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                flagCloseServer = true;
+                            } else if (str.equals("/?msg=Hello")) {
+                                serverMessage = "Hello";
                             }
-                        } else if (str.equals("/?msg=Hello")) {
-                            serverMessage = "Hello";
+                        }
+                        out.write("HTTP/1.1 200 OK\r\n\r\n");
+                        out.write(serverMessage);
+                        out.flush();
+                        if (flagCloseServer) {
+                            server.close();
                         }
                     }
-                    out.write("HTTP/1.1 200 OK\r\n\r\n");
-                    out.write(serverMessage);
-                    out.flush();
                 }
             }
         }
