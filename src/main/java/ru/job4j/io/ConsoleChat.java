@@ -62,9 +62,9 @@ public class ConsoleChat {
     }
 
     private void writeMessages() {
-        try (BufferedWriter log = new BufferedWriter(new FileWriter(path))) {
+        try (PrintWriter log = new PrintWriter(new FileWriter(path))) {
             for (String message : messages) {
-                log.write(message + System.lineSeparator());
+                log.println(message);
             }
         } catch (Exception e) {
             LOG.error("Запись истории чата: ", e);
@@ -91,7 +91,7 @@ public class ConsoleChat {
     }
 
     private String searchAnswer() {
-        return answers.get(random.nextInt(answers.size() - 1));
+        return answers.get(random.nextInt(answers.size()));
     }
 
     public static void main(String[] args) {
