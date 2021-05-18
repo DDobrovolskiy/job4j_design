@@ -12,27 +12,27 @@ import java.util.function.Predicate;
 
 public class CoreSearch {
 
-    public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
+    public static List<Path> search(Path root, Predicate<String> condition) throws IOException {
         CoreSearchFile searcher = new CoreSearchFile(condition);
         Files.walkFileTree(root, searcher);
         return searcher.getPaths();
     }
 
     static class CoreSearchFile extends SimpleFileVisitor<Path> {
-        private Predicate<Path> condition;
+        private Predicate<String> condition;
         private List<Path> paths = new LinkedList<>();
 
         public List<Path> getPaths() {
             return paths;
         }
 
-        public CoreSearchFile(Predicate<Path> condition) {
+        public CoreSearchFile(Predicate<String> condition) {
             this.condition = condition;
         }
 
         @Override
         public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            if (condition.test(file)) {
+            if (condition.test(file.toString())) {
                 paths.add(file);
             }
             return super.visitFile(file, attrs);
