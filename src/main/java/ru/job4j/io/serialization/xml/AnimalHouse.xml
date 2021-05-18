@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<animal  bork="false" heigh="40F">
-    <home adress="Beyket street 8" />
-    <childres>
-        <child>Tom</child>
-        <child>Jerry</child>
-    </childres>
-</animal>
+<?xml version="1.0" encoding="UTF-8"?>
+<animalHouse name="Home">
+    <open>true</open>
+    <capacity>2</capacity>
+    <animals>
+        <animal name="Jerry"/>
+        <animal name="Tom"/>
+    </animals>
+</animalHouse>
