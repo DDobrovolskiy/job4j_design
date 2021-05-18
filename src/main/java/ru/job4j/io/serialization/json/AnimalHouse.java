@@ -9,14 +9,30 @@ import java.util.List;
 
 public class AnimalHouse {
     private String name;
+    private boolean open;
+    private int capacity;
     private Animal[] animals;
 
     public AnimalHouse() {
     }
 
     public AnimalHouse(String name, Animal... animals) {
+        this.open = true;
+        this.capacity = animals.length;
         this.name = name;
         this.animals = animals;
+    }
+
+    public Animal getFirst() {
+        return animals[0];
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 
     public String getName() {
@@ -27,6 +43,8 @@ public class AnimalHouse {
     public String toString() {
         return "AnimalHouse{"
                 + "name='" + name + '\''
+                + ", open=" + open
+                + ", capacity=" + capacity
                 + ", animals=" + Arrays.toString(animals)
                 + '}';
     }
@@ -40,12 +58,17 @@ public class AnimalHouse {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("name", "Home");
+        jsonObject.put("open", "true");
+        jsonObject.put("capacity", "2");
         jsonObject.put("animals", jsonAnimals);
 
         /* Выведем результат в консоль */
         System.out.println(jsonObject);
 
-        AnimalHouse animalHouse = new AnimalHouse("Home2", new Animal("Gerry"), new Animal("Spachbob"));
+        AnimalHouse animalHouse = new AnimalHouse(
+                "Home2",
+                new Animal("Gerry"),
+                new Animal("Spachbob"));
 
         /* Преобразуем объект person в json-строку */
         System.out.println(new JSONObject(animalHouse));
