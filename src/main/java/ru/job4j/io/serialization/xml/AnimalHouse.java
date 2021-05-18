@@ -9,11 +9,14 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Arrays;
 
-@XmlRootElement(name = "home")
+@XmlRootElement(name = "animalHouse")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AnimalHouse {
     @XmlAttribute
     private String name;
+    private boolean open;
+    private int capacity;
+
     @XmlElementWrapper(name = "animals")
     @XmlElement(name = "animal")
     private Animal[] animals;
@@ -22,6 +25,8 @@ public class AnimalHouse {
     }
 
     public AnimalHouse(String name, Animal... animals) {
+        this.open = true;
+        this.capacity = animals.length;
         this.name = name;
         this.animals = animals;
     }
@@ -30,36 +35,44 @@ public class AnimalHouse {
         return animals[0];
     }
 
+    public boolean isOpen() {
+        return open;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "AnimalHouse{"
                 + "name='" + name + '\''
+                + ", open=" + open
+                + ", capacity=" + capacity
                 + ", animals=" + Arrays.toString(animals)
                 + '}';
     }
 
-    public static void main(String[] args) throws JAXBException, IOException {
-        AnimalHouse house = new AnimalHouse("Home", new Animal("Tom"), new Animal("Jerry"));
-        // Получаем контекст для доступа к АПИ
+    public static void main(String[] args) throws JAXBException {
+
+        final AnimalHouse animalHouse = new AnimalHouse("Home1", new Animal("Jerry"), new Animal("Tom"));
+
         JAXBContext context = JAXBContext.newInstance(AnimalHouse.class);
-        // Создаем сериализатор
         Marshaller marshaller = context.createMarshaller();
-        // Указываем, что нам нужно форматирование
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        String xml = "";
+
         try (StringWriter writer = new StringWriter()) {
-            // Сериализуем
-            marshaller.marshal(house, writer);
-            xml = writer.getBuffer().toString();
-            System.out.println(xml);
-        }
-        // Для десериализации нам нужно создать десериализатор
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        try (StringReader reader = new StringReader(xml)) {
-            // десериализуем
-            AnimalHouse result = (AnimalHouse) unmarshaller.unmarshal(reader);
+            marshaller.marshal(animalHouse, writer);
+            String result = writer.getBuffer().toString();
             System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
+
 
