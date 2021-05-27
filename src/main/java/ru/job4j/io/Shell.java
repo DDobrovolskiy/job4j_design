@@ -11,21 +11,18 @@ public class Shell {
 
     public Shell() {
         paths = new Stack<>();
-        pattern = Pattern.compile("(^\\.{2})?(^(\\/)|(\\/))*(\\w+)*");
+        pattern = Pattern.compile("(\\/)*(\\w+)*");
     }
 
     public void cd(String path) {
+        if ((path.startsWith("..")) || (path.startsWith("/"))) {
+            paths.clear();
+        }
         matcher = pattern.matcher(path);
         while (matcher.find()) {
-            System.out.println(matcher.group(5));
-            if (matcher.group(1) != null) {
-                paths.clear();
-            }
-            if (matcher.group(3) != null) {
-                paths.clear();
-            }
-            if (matcher.group(5) != null) {
-                paths.add(matcher.group(5));
+            System.out.println(matcher.group(2));
+            if (matcher.group(2) != null) {
+                paths.add(matcher.group(2));
             }
         }
     }
